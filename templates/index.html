@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Scholar Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #667eea;
+        }
+
+        .header-info h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .header-info p {
+            color: #718096;
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .header-info a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .header-info a:hover {
+            text-decoration: underline;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #718096;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chart-card h2 {
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-size: 1.5em;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .interest-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .publications-list {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .publications-list h2 {
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .publication-item {
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 15px;
+            background: #f7fafc;
+            border-radius: 5px;
+        }
+
+        .publication-item h3 {
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .publication-item .meta {
+            color: #718096;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .publication-item a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .publication-item a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading">Loading dashboard...</div>
+        <div id="content" style="display: none;">
+            <div class="header">
+                <img id="profile-img" class="profile-img" src="" alt="Profile">
+                <div class="header-info">
+                    <h1 id="author-name"></h1>
+                    <p id="affiliation"></p>
+                    <p id="email"></p>
+                    <p id="homepage"></p>
+                    <div class="interests" id="interests"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Citations</h3>
+                    <div class="value" id="total-citations"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>H-Index</h3>
+                    <div class="value" id="h-index"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>i10-Index</h3>
+                    <div class="value" id="i10-index"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Publications</h3>
+                    <div class="value" id="publication-count"></div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h2>Citation Trends</h2>
+                    <div class="chart-container">
+                        <canvas id="citation-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Publication Rankings</h2>
+                    <div class="chart-container">
+                        <canvas id="ranking-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Authorship Positions</h2>
+                    <div class="chart-container">
+                        <canvas id="authorship-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Research Keywords</h2>
+                    <div class="chart-container">
+                        <canvas id="keywords-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publications-list">
+                <h2>Top Publications</h2>
+                <div id="publications"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let charts = {};
+
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/analysis');
+                if (!response.ok) {
+                    throw new Error('Failed to load data');
+                }
+                const data = await response.json();
+                renderDashboard(data);
+            } catch (error) {
+                document.getElementById('loading').innerHTML = 
+                    `<div class="error">Error loading dashboard: ${error.message}</div>`;
+            }
+        }
+
+        function renderDashboard(data) {
+            // Hide loading, show content
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+
+            // Header info
+            document.getElementById('author-name').textContent = data.name;
+            document.getElementById('affiliation').textContent = data.affiliation || 'Unknown';
+            if (data.email_domain) {
+                document.getElementById('email').textContent = `Email: ${data.email_domain}`;
+            }
+            if (data.homepage) {
+                const homepageEl = document.getElementById('homepage');
+                homepageEl.innerHTML = `<a href="${data.homepage}" target="_blank">${data.homepage}</a>`;
+            }
+            if (data.url_picture) {
+                document.getElementById('profile-img').src = data.url_picture;
+            }
+
+            // Interests
+            const interestsEl = document.getElementById('interests');
+            if (data.interests && data.interests.length > 0) {
+                data.interests.forEach(interest => {
+                    const tag = document.createElement('span');
+                    tag.className = 'interest-tag';
+                    tag.textContent = interest;
+                    interestsEl.appendChild(tag);
+                });
+            }
+
+            // Stats
+            document.getElementById('total-citations').textContent = data.total_citations.toLocaleString();
+            document.getElementById('h-index').textContent = data.h_index;
+            document.getElementById('i10-index').textContent = data.i10_index;
+            document.getElementById('publication-count').textContent = data.total_publications || data.publications.length;
+
+            // Citation trends chart
+            const citationData = data.citation_metrics.trends;
+            charts.citation = new Chart(document.getElementById('citation-chart'), {
+                type: 'line',
+                data: {
+                    labels: citationData.map(d => d[0]),
+                    datasets: [{
+                        label: 'Citations',
+                        data: citationData.map(d => d[1]),
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Publication rankings chart
+            // Use ordered data to preserve rank_counts order (A*, A, B, C, Unranked, No Venue Found)
+            const rankOrder = ["A*", "A", "B", "C", "Unranked", "No Venue Found"];
+            const rankData = data.publication_ranks;
+            
+            // Filter and order by rank_counts order
+            const orderedRanks = rankOrder
+                .filter(rank => rankData[rank] > 0)
+                .map(rank => ({ rank: rank, count: rankData[rank] }));
+            
+            // Jet colormap mapping: A* (best) = red, descending to blue
+            // Full jet spectrum: dark blue -> blue -> cyan -> yellow -> orange -> red
+            const rankColorMap = {
+                "A*": "#FF0000",           // Red (highest quality)
+                "A": "#FF8000",            // Orange
+                "B": "#FFFF00",            // Yellow
+                "C": "#00FFFF",            // Cyan
+                "Unranked": "#0000FF",      // Blue
+                "No Venue Found": "#000080" // Dark blue (lowest)
+            };
+            
+            charts.ranking = new Chart(document.getElementById('ranking-chart'), {
+                type: 'doughnut',
+                data: {
+                    labels: orderedRanks.map(r => r.rank),
+                    datasets: [{
+                        data: orderedRanks.map(r => r.count),
+                        backgroundColor: orderedRanks.map(r => rankColorMap[r.rank])
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Authorship positions chart
+            const authData = data.authorship_stats;
+            charts.authorship = new Chart(document.getElementById('authorship-chart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(authData),
+                    datasets: [{
+                        label: 'Publications',
+                        data: Object.values(authData),
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Research keywords chart
+            const keywordData = data.research_areas.slice(0, 10);
+            charts.keywords = new Chart(document.getElementById('keywords-chart'), {
+                type: 'bar',
+                data: {
+                    labels: keywordData.map(d => d.term),
+                    datasets: [{
+                        label: 'Frequency',
+                        data: keywordData.map(d => d.count),
+                        backgroundColor: '#764ba2'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Publications list
+            const pubsEl = document.getElementById('publications');
+            data.publications.forEach(pub => {
+                const item = document.createElement('div');
+                item.className = 'publication-item';
+                item.innerHTML = `
+                    <h3>${pub.title}</h3>
+                    <div class="meta">
+                        <strong>${pub.year}</strong> | ${pub.venue} | 
+                        <strong>${pub.citations}</strong> citations
+                    </div>
+                    ${pub.url ? `<a href="${pub.url}" target="_blank">View Publication →</a>` : ''}
+                `;
+                pubsEl.appendChild(item);
+            });
+        }
+
+        // Load dashboard on page load
+        loadDashboard();
+    </script>
+</body>
+</html>
+

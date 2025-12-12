@@ -1,0 +1,120 @@
+{
+    "acm sigada ada letters": "C",
+    "acm transactions on embedded computing systems": {
+        "rank": "A",
+        "impact_factor": 2.1,
+        "sjr": 0.6
+    },
+    "asia and south pacific design automation conference": "B",
+    "association for computational linguistics": "A*",
+    "conference on computer vision and pattern recognition": "A*",
+    "design automation conference": "A",
+    "design, automation and test in europe": "A",
+    "euromicro conference on real-time systems": "A",
+    "european conference on mobile robots": "B",
+    "hardware/software codesign and system synthesis": "A",
+    "ieee international conference on acoustics, speech and signal processing": "A*",
+    "ieee international conference on embedded and real-time computing systems and applications": "B",
+    "ieee international conference on industrial informatics": "C",
+    "ieee transactions on computer aided design of integrated circuits and systems": {
+        "rank": "A",
+        "impact_factor": 2.9,
+        "sjr": 0.9
+    },
+    "ieee transactions on computers": {
+        "rank": "A*",
+        "impact_factor": 3.8,
+        "sjr": 1.2
+    },
+    "ieee transactions on parallel and distributed systems": {
+        "rank": "A*",
+        "impact_factor": 5.3,
+        "sjr": 1.5
+    },
+    "ieee transactions on robotics": {
+        "rank": "A*",
+        "impact_factor": 7.8,
+        "sjr": 2.1
+    },
+    "integreatal conference on compilers, architecture, and synthesis for embedded systems": "A",
+    "international conference on computer-aided design": "A",
+    "international conference on embedded software": "A",
+    "international conference on emerging technologies and factory automation": "B",
+    "international conference on intelligent robots and systems": "A",
+    "international conference on learning representations": "A*",
+    "international conference on machine learning": "A*",
+    "international conference on robotics and automation": "A",
+    "international symposium on object/component/service-oriented real-time distributed computing": "B",
+    "international workshop on rapid system prototyping": "C",
+    "journal of machine learning research": {
+        "rank": "A*",
+        "impact_factor": null,
+        "sjr": 3.5
+    },
+    "journal of systems and software": {
+        "rank": "A",
+        "impact_factor": 4.1,
+        "sjr": 1.1
+    },
+    "journal of systems architecture": {
+        "rank": "B",
+        "impact_factor": 3.2,
+        "sjr": 0.7
+    },
+    "languages, compilers, and tools for embedded systems": "B",
+    "microprocessors and microsystems": "B",
+    "nature": {
+        "rank": "A*",
+        "impact_factor": 64.8,
+        "sjr": 18.1
+    },
+    "neural information processing systems": "A*",
+    "real-time and embedded technology and applications symposium": "A",
+    "real-time systems symposium": "A*",
+    "robotics and autonomous systems": {
+        "rank": "B",
+        "impact_factor": 5.9,
+        "sjr": 1.3
+    },
+    "robotics: science and systems": "A*",
+    "science": {
+        "rank": "A*",
+        "impact_factor": 56.9,
+        "sjr": 16.2
+    },
+    "workshop on operating systems platforms for embedded real-time applications": "C",
+    "acl": "A*",
+    "asp-dac": "B",
+    "cases": "A",
+    "codes+isss": "A",
+    "cvpr": "A*",
+    "dac": "A",
+    "date": "A",
+    "ecmr": "B",
+    "ecrts": "A",
+    "emsoft": "A",
+    "etfa": "B",
+    "icassp": "A*",
+    "iccad": "A",
+    "iclr": "A*",
+    "icml": "A*",
+    "icra": "A",
+    "indin": "C",
+    "iros": "A",
+    "isorc": "B",
+    "jmlr": "A*",
+    "jsa": "B",
+    "lctes": "B",
+    "micpro": "B",
+    "neurips": "A*",
+    "ospert": "C",
+    "rsp": "C",
+    "rss": "A*",
+    "rtas": "A",
+    "rtcsa": "B",
+    "rtss": "A*",
+    "tcad": "A",
+    "tecs": "A",
+    "tpds": "A*",
+    "tro": "A*"
+}
