@@ -16,7 +16,12 @@ A comprehensive toolkit for fetching, analyzing, and visualizing Google Scholar 
 
 ## Installation
 
-1. Clone the repository.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/automaticdai/ScholarInsights.git
+   cd ScholarInsights
+   ```
+
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
@@ -26,7 +31,7 @@ A comprehensive toolkit for fetching, analyzing, and visualizing Google Scholar 
    - `flask` - Web framework for the dashboard
    - `scholarly` - Google Scholar API wrapper
    - `requests` - HTTP library
-   - `fake-useragent` - User agent rotation
+   - `fake-useragent` - Provides rotating user-agents for web requests
 
 ## Usage
 

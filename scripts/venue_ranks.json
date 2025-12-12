@@ -1,21 +1,116 @@
 {
+    "aaai conference on artificial intelligence": "A*",
+    "acm conference on computer and communications security": "A*",
+    "acm conference on knowledge discovery and data mining": "A*",
+    "acm conference on programming language design and implementation": "A*",
+    "acm conference on recommender systems": "A",
+    "acm conference on software engineering": "A*",
+    "acm international conference on architectural support for programming languages and operating systems": "A*",
+    "acm international conference on information and knowledge management": "A",
+    "acm international conference on multimedia": "A",
+    "acm international conference on web search and data mining": "A*",
     "acm sigada ada letters": "C",
+    "acm siggraph": "A*",
+    "acm siggraph asia": "A*",
+    "acm sigir conference on research and development in information retrieval": "A*",
+    "acm sigkdd conference on knowledge discovery and data mining": "A*",
+    "acm sigmod international conference on management of data": "A*",
+    "acm sigplan conference on programming language design and implementation": "A*",
+    "acm sigsoft international symposium on foundations of software engineering": "A*",
+    "acm transactions on computer systems": {
+        "rank": "A*",
+        "impact_factor": 2.5,
+        "sjr": 1.1
+    },
+    "acm transactions on database systems": {
+        "rank": "A*",
+        "impact_factor": 4.2,
+        "sjr": 1.8
+    },
     "acm transactions on embedded computing systems": {
         "rank": "A",
         "impact_factor": 2.1,
         "sjr": 0.6
     },
+    "acm transactions on graphics": {
+        "rank": "A*",
+        "impact_factor": 4.1,
+        "sjr": 2.3
+    },
+    "acm transactions on information systems": {
+        "rank": "A",
+        "impact_factor": 3.5,
+        "sjr": 1.4
+    },
+    "acm transactions on software engineering and methodology": {
+        "rank": "A",
+        "impact_factor": 3.8,
+        "sjr": 1.2
+    },
+    "aaai": "A*",
+    "aistats": "A",
+    "asplos": "A*",
+    "ccs": "A*",
     "asia and south pacific design automation conference": "B",
+    "association for advancement of artificial intelligence": "A*",
     "association for computational linguistics": "A*",
+    "automated software engineering": "A",
+    "chi conference on human factors in computing systems": "A*",
     "conference on computer vision and pattern recognition": "A*",
+    "conference on neural information processing systems": "A*",
     "design automation conference": "A",
     "design, automation and test in europe": "A",
+    "european conference on computer vision": "A*",
     "euromicro conference on real-time systems": "A",
     "european conference on mobile robots": "B",
     "hardware/software codesign and system synthesis": "A",
+    "ieee computer security foundations symposium": "A",
+    "ieee conference on computer vision and pattern recognition": "A*",
     "ieee international conference on acoustics, speech and signal processing": "A*",
+    "ieee international conference on computer communications": "A*",
+    "ieee international conference on data engineering": "A",
+    "ieee international conference on distributed computing systems": "A",
     "ieee international conference on embedded and real-time computing systems and applications": "B",
     "ieee international conference on industrial informatics": "C",
+    "ieee international conference on software engineering": "A*",
+    "ieee international parallel and distributed processing symposium": "A",
+    "ieee security and privacy": "A*",
+    "ieee symposium on security and privacy": "A*",
+    "ieee transactions on information theory": {
+        "rank": "A*",
+        "impact_factor": 2.5,
+        "sjr": 1.8
+    },
+    "ieee transactions on knowledge and data engineering": {
+        "rank": "A*",
+        "impact_factor": 4.9,
+        "sjr": 1.6
+    },
+    "ieee transactions on mobile computing": {
+        "rank": "A",
+        "impact_factor": 5.3,
+        "sjr": 1.4
+    },
+    "ieee transactions on networking": {
+        "rank": "A*",
+        "impact_factor": 3.6,
+        "sjr": 1.5
+    },
+    "ieee transactions on pattern analysis and machine intelligence": {
+        "rank": "A*",
+        "impact_factor": 24.3,
+        "sjr": 4.2
+    },
+    "ieee transactions on software engineering": {
+        "rank": "A*",
+        "impact_factor": 7.4,
+        "sjr": 1.9
+    },
+    "ieee transactions on visualization and computer graphics": {
+        "rank": "A*",
+        "impact_factor": 5.2,
+        "sjr": 1.8
+    },
     "ieee transactions on computer aided design of integrated circuits and systems": {
         "rank": "A",
         "impact_factor": 2.9,
@@ -37,15 +132,32 @@
         "sjr": 2.1
     },
     "integreatal conference on compilers, architecture, and synthesis for embedded systems": "A",
+    "international conference on automated planning and scheduling": "A",
     "international conference on computer-aided design": "A",
+    "international conference on computer vision": "A*",
+    "international conference on data mining": "A",
+    "international conference on database theory": "A",
+    "international conference on distributed computing": "A",
     "international conference on embedded software": "A",
     "international conference on emerging technologies and factory automation": "B",
     "international conference on intelligent robots and systems": "A",
     "international conference on learning representations": "A*",
     "international conference on machine learning": "A*",
+    "international conference on principles of distributed systems": "A",
     "international conference on robotics and automation": "A",
+    "international conference on very large data bases": "A*",
+    "international joint conference on artificial intelligence": "A*",
+    "international symposium on computer architecture": "A*",
+    "international symposium on foundations of computer science": "A*",
+    "international symposium on software testing and analysis": "A",
+    "international world wide web conference": "A*",
     "international symposium on object/component/service-oriented real-time distributed computing": "B",
     "international workshop on rapid system prototyping": "C",
+    "journal of artificial intelligence research": {
+        "rank": "A*",
+        "impact_factor": null,
+        "sjr": 2.8
+    },
     "journal of machine learning research": {
         "rank": "A*",
         "impact_factor": null,
@@ -63,14 +175,22 @@
     },
     "languages, compilers, and tools for embedded systems": "B",
     "microprocessors and microsystems": "B",
+    "ndss symposium": "A*",
     "nature": {
         "rank": "A*",
         "impact_factor": 64.8,
         "sjr": 18.1
     },
     "neural information processing systems": "A*",
+    "network and distributed system security symposium": "A*",
     "real-time and embedded technology and applications symposium": "A",
     "real-time systems symposium": "A*",
+    "sigcomm": "A*",
+    "sigir": "A*",
+    "sigkdd": "A*",
+    "sigmod": "A*",
+    "sigsoft fse": "A*",
+    "sosp": "A*",
     "robotics and autonomous systems": {
         "rank": "B",
         "impact_factor": 5.9,
@@ -115,6 +235,17 @@
     "rtss": "A*",
     "tcad": "A",
     "tecs": "A",
+    "tkde": "A*",
+    "tpami": "A*",
+    "tse": "A*",
     "tpds": "A*",
-    "tro": "A*"
+    "tro": "A*",
+    "tvcg": "A*",
+    "uist": "A",
+    "usenix annual technical conference": "A*",
+    "usenix security symposium": "A*",
+    "vldb": "A*",
+    "www": "A*",
+    "wacv": "B",
+    "wccv": "B"
 }

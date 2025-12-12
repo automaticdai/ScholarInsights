@@ -31,6 +31,118 @@ class ScholarAnalyzer:
             "trends": sorted_years
         }
 
+    def _normalize_keyword(self, word: str) -> str:
+        """Normalizes a keyword by handling compound words, plurals, and variations.
+        
+        Args:
+            word: The keyword to normalize.
+        
+        Returns:
+            Normalized keyword.
+        """
+        # Common prefixes that should be hyphenated when found in compound words
+        hyphenated_prefixes = {
+            'multi', 'real', 'time', 'cache', 'cyber', 'mixed', 'non', 'pre', 
+            'post', 'semi', 'sub', 'super', 'ultra', 'inter', 'intra', 'over',
+            'under', 'cross', 'self', 'auto', 'pseudo', 'quasi', 'micro',
+            'macro', 'meta', 'hyper', 'co', 'anti', 'pro', 'counter', 'de',
+            're', 'un', 'in', 'im', 'dis', 'en', 'ex', 'out', 'up', 'down',
+            'off', 'on', 'over', 'under', 'with', 'without', 'full', 'half',
+            'all', 'any', 'some', 'every', 'no', 'new', 'old', 'high', 'low',
+            'big', 'small', 'large', 'wide', 'narrow', 'long', 'short', 'fast',
+            'slow', 'early', 'late', 'first', 'last', 'next', 'previous',
+            'single', 'double', 'triple', 'quad', 'many', 'few', 'most', 'least'
+        }
+        
+        # Common suffixes that might appear in compound words
+        hyphenated_suffixes = {
+            'aware', 'based', 'centric', 'driven', 'enabled', 'free', 'friendly',
+            'oriented', 'proof', 'ready', 'related', 'sensitive', 'specific',
+            'style', 'type', 'wise', 'worthy', 'less', 'ful', 'like', 'wide',
+            'scale', 'level', 'grade', 'class', 'rate', 'speed', 'time', 'space',
+            'bound', 'limited', 'controlled', 'managed', 'optimized', 'tuned',
+            'adaptive', 'dynamic', 'static', 'active', 'passive', 'intelligent',
+            'smart', 'automatic', 'manual', 'semi', 'quasi', 'pseudo', 'virtual',
+            'real', 'true', 'false', 'positive', 'negative', 'neutral'
+        }
+        
+        # If already hyphenated, return as-is
+        if '-' in word:
+            return word
+        
+        # Try to detect and normalize compound words
+        normalized = word
+        
+        # Check for common prefix patterns (e.g., "realtime" -> "real-time")
+        for prefix in sorted(hyphenated_prefixes, key=len, reverse=True):
+            if normalized.startswith(prefix) and len(normalized) > len(prefix):
+                # Check if the remaining part is a valid word
+                remaining = normalized[len(prefix):]
+                if len(remaining) >= 3:  # Minimum word length
+                    # Check if it could be a compound (e.g., "time", "core", "physical")
+                    if remaining in hyphenated_suffixes or len(remaining) >= 4:
+                        normalized = f"{prefix}-{remaining}"
+                        break
+        
+        # Check for common suffix patterns (e.g., "cacheaware" -> "cache-aware")
+        if '-' not in normalized:
+            for suffix in sorted(hyphenated_suffixes, key=len, reverse=True):
+                if normalized.endswith(suffix) and len(normalized) > len(suffix):
+                    remaining = normalized[:-len(suffix)]
+                    if len(remaining) >= 3:
+                        # Check if remaining part could be a prefix
+                        if remaining in hyphenated_prefixes or len(remaining) >= 4:
+                            normalized = f"{remaining}-{suffix}"
+                            break
+        
+        # Normalize plurals to singular for consistency (conservative approach)
+        # Common technical terms that should be normalized (plural -> singular)
+        plural_to_singular = {
+            'systems': 'system', 'networks': 'network', 'algorithms': 'algorithm',
+            'methods': 'method', 'models': 'model', 'approaches': 'approach',
+            'techniques': 'technique', 'frameworks': 'framework', 'architectures': 'architecture',
+            'designs': 'design', 'implementations': 'implementation', 'evaluations': 'evaluation',
+            'analyses': 'analysis', 'optimizations': 'optimization', 'applications': 'application',
+            'solutions': 'solution', 'protocols': 'protocol', 'services': 'service',
+            'devices': 'device', 'nodes': 'node', 'processes': 'process', 'threads': 'thread',
+            'tasks': 'task', 'jobs': 'job', 'requests': 'request', 'queries': 'query',
+            'databases': 'database', 'tables': 'table', 'records': 'record', 'entries': 'entry',
+            'files': 'file', 'directories': 'directory', 'paths': 'path', 'links': 'link',
+            'engines': 'engine', 'servers': 'server', 'clients': 'client', 'users': 'user',
+            'interfaces': 'interface', 'components': 'component', 'modules': 'module',
+            'features': 'feature', 'functions': 'function', 'operations': 'operation',
+            'events': 'event', 'messages': 'message', 'signals': 'signal', 'packets': 'packet',
+            'channels': 'channel', 'streams': 'stream', 'flows': 'flow', 'sessions': 'session',
+            'policies': 'policy', 'strategies': 'strategy', 'mechanisms': 'mechanism',
+            'studies': 'study', 'experiments': 'experiment', 'tests': 'test', 'benchmarks': 'benchmark',
+            'metrics': 'metric', 'measurements': 'measurement', 'results': 'result', 'findings': 'finding'
+        }
+        
+        # Set of known singular forms for pattern matching
+        known_singulars = set(plural_to_singular.values())
+        
+        # Check if word is a known plural form
+        if normalized in plural_to_singular:
+            normalized = plural_to_singular[normalized]
+        # Handle common plural patterns for technical terms
+        elif normalized.endswith('ies') and len(normalized) > 4:
+            # "policies" -> "policy", "strategies" -> "strategy"
+            base = normalized[:-3] + 'y'
+            if base in known_singulars:
+                normalized = base
+        elif normalized.endswith('es') and len(normalized) > 3:
+            # "approaches" -> "approach", "processes" -> "process"
+            base = normalized[:-2]
+            if base in known_singulars:
+                normalized = base
+        elif normalized.endswith('s') and len(normalized) > 3:
+            # Only normalize if it's a known technical term pattern
+            base = normalized[:-1]
+            if base in known_singulars:
+                normalized = base
+        
+        return normalized
+
     def get_research_areas(self, top_n: int = 10) -> List[Tuple[str, int]]:
         """Extracts common keywords from publication titles.
         
@@ -48,16 +160,6 @@ class ScholarAnalyzer:
             'is', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had'
         }
         
-        # Normalization map for equivalent terms
-        normalization_map = {
-            'realtime': 'real-time',
-            'multicore': 'multi-core',
-            'cyberphysical': 'cyber-physical',
-            'timesensitive': 'time-sensitive',
-            'cacheaware': 'cache-aware',
-            'mixedcriticality': 'mixed-criticality',
-        }
-        
         words = []
         for pub in self.publications:
             title = pub.get('bib', {}).get('title', '').lower()
@@ -66,8 +168,8 @@ class ScholarAnalyzer:
             
             for token in tokens:
                 if token not in stop_words:
-                    # Normalize equivalent terms (e.g., "realtime" -> "real-time")
-                    normalized = normalization_map.get(token, token)
+                    # Normalize equivalent terms automatically
+                    normalized = self._normalize_keyword(token)
                     words.append(normalized)
             
         return Counter(words).most_common(top_n)
