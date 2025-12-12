@@ -2,6 +2,11 @@
 
 A comprehensive toolkit for fetching, analyzing, and visualizing Google Scholar profiles. ScholarInsights provides powerful insights into academic publication metrics, venue rankings, and research trends.
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+![Demo Dashboard](demo.png)
+
+
 ## Features
 - **Data Fetching**: Robust retrieval of author profiles and publication history.
 - **KPI Analysis**: Calculation of total citations, yearly trends, h-index, and key research areas.
@@ -145,3 +150,7 @@ The Flask app provides the following endpoints:
 - `GET /` - Main dashboard page
 - `GET /api/data` - Raw author data JSON
 - `GET /api/analysis` - Analyzed statistics and visualizations data
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
